@@ -16,3 +16,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.product}"
+
+    @property
+    def total_price(self):
+        return self.quantity * self.product.price

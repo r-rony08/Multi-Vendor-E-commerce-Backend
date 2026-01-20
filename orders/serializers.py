@@ -5,10 +5,14 @@ from products.models import Product
 from .models import Order, OrderItem
 
 class OrderCreateSerializer(serializers.Serializer):
+    """
+    Convert Cart -> Order
+    Handles stock checking, atomic transactions
+    """
 
     def create(self, validated_data):
         user = self.context['request'].user
-        cart_items = CartItem.objects.filter(user=user)
+        cart_items = CartItem.objects.filter(user=user).select_related('product')
 
         if not cart_items.exists():
             raise serializers.ValidationError("Cart is empty")
@@ -18,6 +22,7 @@ class OrderCreateSerializer(serializers.Serializer):
             total = 0
 
             for item in cart_items:
+                # Lock the product row to prevent race conditions
                 product = Product.objects.select_for_update().get(id=item.product.id)
 
                 if product.stock < item.quantity:
@@ -40,6 +45,7 @@ class OrderCreateSerializer(serializers.Serializer):
             order.total_price = total
             order.save()
 
+            # Clear user's cart
             cart_items.delete()
 
         return order
