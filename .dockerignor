@@ -1,0 +1,27 @@
+# Byte-compiled / cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment / config
+.env
+
+# Django / local files
+db.sqlite3
+media/
+staticfiles/
+
+# Node / frontend (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker files (ignore for build context)
+docker-compose.override.yml
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
