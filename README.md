@@ -99,4 +99,53 @@ This project is designed as a **backend engineer portfolio project**.
 ---
 
 ## 🗂️ Project Structure
+```text
+e-commerce/
+├── users/
+├── vendors/
+├── products/
+├── carts/
+├── orders/
+├── payments/
+├── analytics/
+├── docker-compose.yml
+├── Dockerfile
+└── README.md
+```
+# API Documentation
+Swagger UI: http://127.0.0.1:8000/api/docs/
 
+## How to Run Locally
+```bash
+git clone https://github.com/your-username/jobtrackr.git](https://github.com/r-rony08/Multi-Vendor-E-commerce-Backend.git
+```
+### Create a .env file in the root directory
+```ini
+DEBUG=True
+SECRET_KEY=your django key password
+ALLOWED_HOSTS=127.0.0.1,localhost
+
+# Database Settings
+DB_NAME=e_commerce
+DB_USER=root
+DB_PASSWORD=your_local_password
+DB_HOST=localhost
+DB_PORT=3306
+```
+```bash
+# Create database
+CREATE DATABASE e_commerce;
+
+# Activate Virtual Environment
+python -m venv env
+
+# On Windows:
+env\Scripts\activate
+
+# Install Dependencies
+pip install -r requirements.txt
+
+# Run Migrations and Start Server
+python manage.py migrate
+python manage.py runserver
+```
